@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pycocoedit"
-version = "0.1.0"
+version = "0.1.0b5"
 description = "Advanced editing tools for COCO dataset annotations"
 authors = ["hachimada <60519909+hachimada@users.noreply.github.com>"]
 readme = "README.md"

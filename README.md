@@ -11,9 +11,13 @@
     <h3 align="center">
       An open-source lightweight Python package for editing and analyzing COCO datasets.
     </h3>
+    <h3 align="center">
+        Important Links: <a href="https://hachimada.github.io/pycocoedit/">Docs</a>
+    </h3>
+
 </html>
 
-**pycocoedit** is a Python package for editing and analyzing COCO datasets.
+**pycocoedit** is a Python package for editing and analyzing [COCO datasets](https://cocodataset.org/#home).
 
 It is particularly useful for specifying which images, annotations, categories, or licenses to include or exclude from your dataset.
 
@@ -70,10 +74,19 @@ coco_data.add_filter(SmallBboxIncludeFilter()).apply_filter().save(new_annotatio
 
 ## Installation
 
-```
-git clone https://github.com/hachimada/pycocoedit.git
-cd pycocoedit
-poetry install
+### Install with pip
+
+```bash
+pip install pycocoedit
+````
+
+### Install with Poetry
+
+Add following to your `pyproject.toml`:
+
+```toml
+[tool.poetry.dependencies]
+pycocoedit = {git = "https://github.com/hachimada/pycocoedit", branch = "main" }
 ```
 
 ## Key Features

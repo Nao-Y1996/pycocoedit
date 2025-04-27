@@ -8,13 +8,13 @@ jobs:
     strategy:
       matrix:
         include:
-          - python-version: "3.10.14"
+          - python-version: "3.10.4"
             coverage: "false"
           - python-version: "3.11.9"
             coverage: "false"
           - python-version: "3.12.4"
             coverage: "false"
-          - python-version: "3.13.3"
+          - python-version: "3.13"
             coverage: "true"
     steps:
       - uses: actions/checkout@v4
@@ -24,21 +24,27 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install Poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-          export PATH="$HOME/.local/bin:$PATH"
-
-      - name: Configure Poetry
-        run: |
-          poetry config virtualenvs.create false
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          virtualenvs-path: .venv
+          installer-parallel: true
 
       - name: Install dependencies
         run: |
-          poetry install
+          poetry install --no-interaction
 
-      # ---------- en: Test + (conditionally) coverage ----------
+      - name: Ruff lint
+        run: poetry run ruff check .
+
+      - name: mypy
+        run: poetry run mypy pycocoedit
+
+      # ---------- Test + (conditionally) coverage ----------
       - name: Run tests
         run: |
+          source .venv/bin/activate
           if [ "${{ matrix.coverage }}" = "true" ]; then
             poetry run pytest \
               --cov=pycocoedit \
@@ -51,12 +57,12 @@ jobs:
             poetry run pytest -q
           fi
 
-      # ---------- en: Upload to Codecov -------
+      # ---------- Upload to Codecov -------
       - name: Upload coverage to Codecov
         if: ${{ matrix.coverage == 'true' }}
         uses: codecov/codecov-action@v4
         with:
-          file: coverage.xml     # pytest-cov が生成
+          file: coverage.xml     # created by pytest-cov
           flags: py313
           # token: ${{ secrets.CODECOV_TOKEN }}
       

@@ -9,8 +9,6 @@ based on various criteria.
 from abc import ABC, abstractmethod
 from enum import Enum
 
-from typing_extensions import override
-
 
 class FilterType(Enum):
     """
@@ -150,22 +148,7 @@ class ImageFileNameFilter(BaseFilter):
         super().__init__(filter_type, TargetType.IMAGE)
         self.file_names = file_names
 
-    @override
-    def apply(self, data: dict) -> bool:
-        """
-        Apply the filename filter to image data.
-
-        Parameters
-        ----------
-        data : dict
-            Image data containing a 'file_name' key.
-
-        Returns
-        -------
-        bool
-            True if the image file name is in the filter's file_names list,
-            False otherwise.
-        """
+    def apply(self, data: dict) -> bool:  # noqa: D102
         return data["file_name"] in self.file_names
 
 
@@ -185,8 +168,7 @@ class CategoryNameFilter(BaseFilter):
         super().__init__(filter_type, TargetType.CATEGORY)
         self.category_names = category_names
 
-    @override
-    def apply(self, data: dict) -> bool:
+    def apply(self, data: dict) -> bool:  # noqa: D102
         return data["name"] in self.category_names
 
 
@@ -220,8 +202,7 @@ class BoxAreaFilter(BaseFilter):
         self.min_area = min_area
         self.max_area = max_area
 
-    @override
-    def apply(self, data: dict) -> bool:
+    def apply(self, data: dict) -> bool:  # noqa: D102
         if self.min_area and self.max_area:
             return self.min_area <= data["area"] <= self.max_area
         elif self.min_area:

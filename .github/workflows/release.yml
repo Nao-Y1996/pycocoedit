@@ -1,0 +1,36 @@
+name: Publish to PyPI
+
+on:
+  push:
+    tags:
+      # Only complete version tags without "rc"
+      - "v[0-9]+.[0-9]+.[0-9]+"
+
+jobs:
+  publish-pypi:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+
+      - name: Configure PyPI repository
+        run: poetry config repositories.pypi https://upload.pypi.org/legacy/
+
+      - name: Publish to PyPI
+        env:
+          POETRY_HTTP_BASIC_PYPI_USERNAME: __token__
+          POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        run: poetry publish -r pypi --skip-existing --build --no-interaction
