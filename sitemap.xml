@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://hachimada.github.io/pycocoedit/</loc>
+         <lastmod>2025-04-27</lastmod>
+    </url>
+    <url>
+         <loc>https://hachimada.github.io/pycocoedit/api/</loc>
+         <lastmod>2025-04-27</lastmod>
+    </url>
+    <url>
+         <loc>https://hachimada.github.io/pycocoedit/api/imagecaptioning/</loc>
+         <lastmod>2025-04-27</lastmod>
+    </url>
+    <url>
+         <loc>https://hachimada.github.io/pycocoedit/api/keypointdetection/</loc>
+         <lastmod>2025-04-27</lastmod>
+    </url>
+    <url>
+         <loc>https://hachimada.github.io/pycocoedit/api/objectdetection/</loc>
+         <lastmod>2025-04-27</lastmod>
+    </url>
+    <url>
+         <loc>https://hachimada.github.io/pycocoedit/api/panopticsegmentation/</loc>
+         <lastmod>2025-04-27</lastmod>
+    </url>
+</urlset>
